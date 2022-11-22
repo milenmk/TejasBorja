@@ -1,0 +1,205 @@
+/* roboto-regular - latin_cyrillic */
+@font-face {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 400;
+    src: url('./fonts/roboto-v30-latin_cyrillic-regular.eot'); /* IE9 Compat Modes */
+    src: local(''),
+    url('./fonts/roboto-v30-latin_cyrillic-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('./fonts/roboto-v30-latin_cyrillic-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('./fonts/roboto-v30-latin_cyrillic-regular.woff') format('woff'), /* Modern Browsers */
+    url('./fonts/roboto-v30-latin_cyrillic-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('./fonts/roboto-v30-latin_cyrillic-regular.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+
+body {
+    font-size: 0.92em;
+    line-height: 1.4;
+    font-family: Roboto, sans-serif;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 0;
+    margin-left: 0;
+    direction: ltr;
+}
+
+.header {
+    display: block;
+    min-height: 80px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #edead6;
+}
+
+.header-menu {
+    display: block;
+    float: right;
+    margin: auto;
+    padding-right: 50px;
+}
+
+.header-icons {
+    display: block;
+    float: right;
+    margin: auto;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.icon::before {
+    padding-left: 10px;
+    vertical-align: middle;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+.facebook::before {
+    font-family: "Font Awesome 5 Brands";
+    font-weight: 900;
+    content: "\f09a";
+}
+.youtube::before {
+    font-family: "Font Awesome 5 Brands";
+    content: "\f167";
+}
+.instagram::before {
+    font-family: "Font Awesome 5 Brands";
+    content: "\f16d";
+}
+
+.header-menu > a:link, .header-menu > a:visited {
+    text-decoration: none;
+    color: rgb(47,46,46);
+    padding-left: 20px;
+}
+
+.header-icons > a:link, .header-icons > a:visited {
+    text-decoration: none;
+    color: rgb(255,255,255);
+}
+
+.public-center {
+    max-width: 1280px;
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 30px;
+    position: relative;
+}
+
+.public-logo {
+    width: 33%;
+    position: relative;
+    display: flex;
+}
+
+.column-4 {
+    position: relative;
+    display: grid;
+    grid-auto-flow: column;
+    float: left;
+    width: 25%;
+}
+
+.column-content-4 {
+    border: 1px solid #333;
+    margin: 10px 20px;
+}
+
+/* Clear floats after the columns */
+.row-4:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.hide-lead-1 {
+    display: none;
+}
+
+.head-lead-1:hover > .hide-lead-1 {
+    display: block;
+}
+
+.hide-lead-1:hover {
+    display: block;
+}
+
+.hide-lead-2 {
+    display: none;
+}
+
+.head-lead-2:hover > .hide-lead-2 {
+    display: block;
+}
+
+.hide-lead-2:hover {
+    display: block;
+}
+
+.hide-lead-3 {
+    display: none;
+}
+
+.head-lead-3:hover > .hide-lead-3 {
+    display: block;
+}
+
+.hide-lead-3:hover {
+    display: block;
+}
+
+.hide-lead-4 {
+    display: none;
+}
+
+.head-lead-4:hover > .hide-lead-4 {
+    display: block;
+}
+
+.hide-lead-4:hover {
+    display: block;
+}
+
+.gap {
+    margin: 20px 0 20px 0;
+}
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+    font-family:avenir-lt-w01_35-light1475496,avenir-lt-w05_35-light,sans-serif;
+    color: #fff;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+    background-color: #fff;
+    border: 5px solid rgba(255, 0, 0, 0.5);
+    padding: 10px 10px;
+}
+
+.contact_section {
+    max-width: 100%;
+    color: #fff;
+    padding: 20px 20px;
+    background-color: rgba(206,32,38,1);
+}
+
+a:link {
+    color: #fff;
+    text-decoration: none;
+}
+
+.foot {
+    color: #fff;
+    padding: 20px 20px;
+    background-color: #000;
+}

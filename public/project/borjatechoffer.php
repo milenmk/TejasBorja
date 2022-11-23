@@ -263,7 +263,7 @@ if (empty($reshook) && $action == 'add') {
             }
 
             $thirdparty->fetch($thirdparty->id);
-            if (GETPOST('custcat', 'az09') != 9999) {
+            if (GETPOST('custcat', 'az09')) {
                 $thirdparty->setCategories(GETPOST('custcat', 'az09'), 'customer');
             }
         }
@@ -877,7 +877,7 @@ print '</td></tr>';
 //Customer category
 print '<tr><td class="left">' . $langs->trans('CustomersCategorie') . '</td><td class="left">';
 print '<select name="custcat" class="minwidth200">';
-print '<option value="9999">' . $langs->trans('Individual') . '</option>';
+print '<option value=""></option>';
 foreach ($bthc->getCustomerCategories() as $cat) {
     print '<option value="' . $cat['id'] . '">' . $cat['label'] . '</option>';
 }

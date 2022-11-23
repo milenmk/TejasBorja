@@ -31,7 +31,7 @@ if (!defined('NOLOGIN')) {
     define("NOLOGIN", 1); // This means this output page does not require to be logged.
 }
 if (!defined('NOCSRFCHECK')) {
-    define("NOCSRFCHECK", 1); // We accept to go on this page from external web site.
+    define("NOCSRFCHECK", 1); // We accept to go on this page from external website.
 }
 if (!defined('NOIPCHECK')) {
     define('NOIPCHECK', '1'); // Do not check IP defined into conf $dolibarr_main_restrict_ip
@@ -49,6 +49,8 @@ $entity = (!empty($_GET['entity']) ? (int)$_GET['entity'] : (!empty($_POST['enti
 if (is_numeric($entity)) {
     define("DOLENTITY", $entity);
 }
+
+global $conf, $langs, $db, $user;
 
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT . '/core/lib/company.lib.php';
@@ -101,7 +103,7 @@ if (empty($conf->project->enabled)) {
  */
 function llxHeaderVierge($title, $head = "", $disablejs = 0, $disablehead = 0, $arrayofjs = '', $arrayofcss = '')
 {
-    global $user, $conf, $langs, $mysoc;
+    global $conf;
 
     top_htmlhead($head, $title, $disablejs, $disablehead, $arrayofjs, $arrayofcss); // Show html headers
 
@@ -245,7 +247,7 @@ if (empty($reshook) && $action == 'add') {
 
             // Fill array 'array_options' with data from the form
             $extrafields->fetch_name_optionals_label($thirdparty->table_element);
-            $ret = $extrafields->setOptionalsFromPost(null, $thirdparty, '', 1);
+            $ret = $extrafields->setOptionalsFromPost((array)null, $thirdparty, '', 1);
             //var_dump($thirdparty->array_options);exit;
             if ($ret < 0) {
                 $error++;
@@ -278,7 +280,7 @@ if (empty($reshook) && $action == 'add') {
         $file = '';
         $classname = '';
         $filefound = 0;
-        $dirmodels = array_merge(array('/'), (array)$conf->modules_parts['models']);
+        $dirmodels = array_merge(array('/'), $conf->modules_parts['models']);
         foreach ($dirmodels as $reldir) {
             $file = dol_buildpath($reldir . "core/modules/project/" . $modele . '.php', 0);
             if (file_exists($file)) {
@@ -316,7 +318,7 @@ if (empty($reshook) && $action == 'add') {
 
         // Fill array 'array_options' with data from the form
         $extrafields->fetch_name_optionals_label($proj->table_element);
-        $ret = $extrafields->setOptionalsFromPost(null, $proj);
+        $ret = $extrafields->setOptionalsFromPost((array)null, $proj);
         if ($ret < 0) {
             $error++;
         }
@@ -329,51 +331,6 @@ if (empty($reshook) && $action == 'add') {
         if ($result > 0) {
             require_once DOL_DOCUMENT_ROOT . '/core/class/CMailFile.class.php';
             $object = $proj;
-
-            if ($object->email) {
-                $subject = '';
-                $msg = '';
-
-                // Send subscription email
-                include_once DOL_DOCUMENT_ROOT . '/core/class/html.formmail.class.php';
-                $formmail = new FormMail($db);
-                // Set output language
-                $outputlangs = new Translate('', $conf);
-                $outputlangs->setDefaultLang(empty($object->thirdparty->default_lang) ? $mysoc->default_lang : $object->thirdparty->default_lang);
-                // Load traductions files required by page
-                $outputlangs->loadLangs(array("main", "members", "projects"));
-                // Get email content from template
-                $arraydefaultmessage = null;
-                $labeltouse = $conf->global->PROJECT_EMAIL_TEMPLATE_AUTOLEAD;
-
-                if (!empty($labeltouse)) {
-                    $arraydefaultmessage = $formmail->getEMailTemplate($db, 'project', $user, $outputlangs, 0, 1, $labeltouse);
-                }
-
-                if (!empty($labeltouse) && is_object($arraydefaultmessage) && $arraydefaultmessage->id > 0) {
-                    $subject = $arraydefaultmessage->topic;
-                    $msg = $arraydefaultmessage->content;
-                }
-                if (empty($labeltosue)) {
-                    $labeltouse = '[' . $mysoc->name . '] ' . $langs->trans("YourMessage");
-                    $msg = $langs->trans("YourMessageHasBeenReceived");
-                }
-
-                $substitutionarray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
-                complete_substitutions_array($substitutionarray, $outputlangs, $object);
-                $subjecttosend = make_substitutions($subject, $substitutionarray, $outputlangs);
-                $texttosend = make_substitutions($msg, $substitutionarray, $outputlangs);
-
-                if ($subjecttosend && $texttosend) {
-                    $moreinheader = 'X-Dolibarr-Info: send_an_email by public/lead/borjatechoffer.php' . "\r\n";
-
-                    $result = $object->send_an_email($texttosend, $subjecttosend, array(), array(), array(), "", "", 0, -1, '', $moreinheader);
-                }
-                /*if ($result < 0) {
-                    $error++;
-                    setEventMessages($object->error, $object->errors, 'errors');
-                }*/
-            }
 
             if (!empty($backtopage)) {
                 $urlback = $backtopage;
@@ -405,7 +362,7 @@ if (empty($reshook) && $action == 'add') {
     }
 }
 
-// Action called after a submitted was send and member created successfully
+// Action called after a submitted was sent and member created successfully
 // If MEMBER_URL_REDIRECT_SUBSCRIPTION is set to url we never go here because a redirect was done to this url.
 // backtopage parameter with an url was set on member submit page, we never go here because a redirect was done to this url.
 if (empty($reshook) && $action == 'added') {
@@ -438,7 +395,7 @@ print load_fiche_titre('', '', '', 0, 0, 'center');
 print '<h2 style="line-height:normal; text-align:center; font-size:28px;"><span style="letter-spacing:normal;"><span>Ценови Пакети за Покривни Системи<br>
 <span style="font-size:16px;"><span><span style="color:#A0A09F;">Сезон 2022</span></span></span></span></span></h2>';
 
-print '<div class="center" width="80%">';
+print '<div class="center">';
 
 ?>
     <div class="center">
@@ -704,7 +661,7 @@ print '<div class="center" width="80%">';
                          style="width: 70px; height: 70px; object-fit: cover; object-position: 50% 50%;">
                     <p style="font-size:14px; line-height:1.5em; text-align:center;"><span
                                 style="color:#282626;"><span><span
-                                        style="font-size:14px;"><span style="letter-spacing:0em;">Plaster moulds and H-cassette production. More compact clay. Very low absortion and extremely strong.</span></span></span></span>
+                                        style="font-size:14px;"><span>Plaster moulds and H-cassette production. More compact clay. Very low absortion and extremely strong.</span></span></span></span>
                     </p>
                 </div>
             </div>
@@ -718,7 +675,7 @@ print '<div class="center" width="80%">';
                          style="width: 70px; height: 70px; object-fit: cover; object-position: 50% 50%;">
                     <p style="font-size:14px; line-height:1.5em; text-align:center;"><span
                                 style="color:#282626;"><span><span
-                                        style="font-size:14px;"><span style="letter-spacing:0em;">New Inkjet technology, the digital printing system allows us to create finishes never used before in the sector.</span></span></span></span>
+                                        style="font-size:14px;"><span>New Inkjet technology, the digital printing system allows us to create finishes never used before in the sector.</span></span></span></span>
                     </p>
                 </div>
             </div>
@@ -732,7 +689,7 @@ print '<div class="center" width="80%">';
                          style="width: 70px; height: 70px; object-fit: cover; object-position: 50% 50%;">
                     <p style="font-size:14px; line-height:1.5em; text-align:center;"><span
                                 style="color:#282626;"><span><span
-                                        style="font-size:14px;"><span style="letter-spacing:0em;">Exclusive to Tejas Borja, a roller kiln manufacturing process using ceramic clay with very low water absortion, less than 3%, to produce large tiles.</span></span></span></span>
+                                        style="font-size:14px;"><span>Exclusive to Tejas Borja, a roller kiln manufacturing process using ceramic clay with very low water absortion, less than 3%, to produce large tiles.</span></span></span></span>
                     </p>
                 </div>
             </div>
@@ -746,7 +703,7 @@ print '<div class="center" width="80%">';
                          style="width: 70px; height: 70px; object-fit: cover; object-position: 50% 50%;">
                     <p style="font-size:14px; line-height:1.5em; text-align:center;"><span
                                 style="color:#282626;"><span><span
-                                        style="font-size:14px;"><span style="letter-spacing:0em;">Manufacturing using high-quality, very fine, red sintered clay. very low absortion and extremely strong.</span></span></span></span>
+                                        style="font-size:14px;"><span>Manufacturing using high-quality, very fine, red sintered clay. very low absortion and extremely strong.</span></span></span></span>
                     </p>
                 </div>
             </div>
@@ -761,7 +718,7 @@ print '<div class="center" width="80%">';
             foreach ($images_array as $imagetmp) {
                 //$image = str_replace($dir, '', $imagetmp);
                 //print '<div class="carouselbox">';
-                print '<p style="border: 10px solid #fff;"><img src="' . $imagetmp . '" width="auto" height="280px" /></p>';
+                print '<p style="border: 10px solid #fff;"><img src="' . $imagetmp . '" alt="' . $imagetmp . '" width="auto" height="280px" /></p>';
                 //print '</div>';
             }
             ?>
@@ -786,7 +743,7 @@ print '<div class="center" width="80%">';
             foreach ($images_array as $imagetmp) {
                 //$image = str_replace($dir, '', $imagetmp);
                 //print '<div class="carouselbox">';
-                print '<p style="border: 10px solid #fff;"><img src="' . $imagetmp . '" width="auto" height="280px" /></p>';
+                print '<p style="border: 10px solid #fff;"><img src="' . $imagetmp . '" alt="' . $imagetmp . '" width="auto" height="280px" /></p>';
                 //print '</div>';
             }
             ?>
@@ -827,7 +784,7 @@ jQuery(document).ready(function () {
 </script>';
 */
 
-print '<table summary="form to subscribe" id="tablesubscribe">' . "\n";
+print '<table id="tablesubscribe">' . "\n";
 
 print '<tr>';
 print '<td class="left">' . $langs->trans('Package') . ':</td>';
@@ -921,7 +878,7 @@ print "</form>\n";
                 <p style="line-height:normal;"><span">Изчисления по чертеж</span></p>
             </li>
             <li>
-                <p style="line-height:normal;"><span">Актуална ценова листа</span>></p>
+                <p style="line-height:normal;"><span">Актуална ценова листа</span></p>
             </li>
             <li style="line-height:normal;">
                 <p style="line-height:normal;"><span>Безплатна консултация 30 мин.</span></p>

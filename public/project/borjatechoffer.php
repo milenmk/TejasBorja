@@ -309,7 +309,7 @@ if (empty($reshook) && $action == 'add') {
         $proj->email = GETPOST("email");
         $proj->public = 1;
         $proj->usage_opportunity = 1;
-        $proj->title = $langs->trans("LeadFromPublicForm");
+        $proj->title = $langs->trans("OnlineFormPackageRequest");
         $proj->description = GETPOST("description", "alphanohtml");
         $proj->opp_status = $defaultoppstatus;
         $proj->fk_opp_status = $defaultoppstatus;

@@ -67,7 +67,7 @@ $backtopage = GETPOST('backtopage', 'alpha');
 $action = GETPOST('action', 'aZ09');
 
 // Load translation files
-$langs->loadLangs(array("members", "companies", "install", "other", "projects", 'admin', 'mails', 'bthcommon@bthcommon'));
+$langs->loadLangs(["members", "companies", "install", "other", "projects", 'admin', 'mails', 'bthcommon@bthcommon']);
 
 if (empty($conf->global->PROJECT_ENABLE_PUBLIC)) {
     print $langs->trans("Form for public lead registration has not been enabled");
@@ -75,7 +75,7 @@ if (empty($conf->global->PROJECT_ENABLE_PUBLIC)) {
 }
 
 // Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array of hook context
-$hookmanager->initHooks(array('publicnewleadcard', 'globalcard'));
+$hookmanager->initHooks(['publicnewleadcard', 'globalcard']);
 
 $extrafields = new ExtraFields($db);
 
@@ -93,16 +93,18 @@ if (empty($conf->project->enabled)) {
 /**
  * Show header for new member
  *
- * @param string $title Title
- * @param string $head Head array
- * @param int $disablejs More content into html header
- * @param int $disablehead More content into html header
- * @param array $arrayofjs Array of complementary js files
- * @param array $arrayofcss Array of complementary css files
+ * @param string $title       Title
+ * @param string $head        Head array
+ * @param int    $disablejs   More content into html header
+ * @param int    $disablehead More content into html header
+ * @param array  $arrayofjs   Array of complementary js files
+ * @param array  $arrayofcss  Array of complementary css files
+ *
  * @return    void
  */
 function llxHeaderVierge($title, $head = "", $disablejs = 0, $disablehead = 0, $arrayofjs = '', $arrayofcss = '')
 {
+
     global $conf;
 
     top_htmlhead($head, $title, $disablejs, $disablehead, $arrayofjs, $arrayofcss); // Show html headers
@@ -132,7 +134,6 @@ function llxHeaderVierge($title, $head = "", $disablejs = 0, $disablehead = 0, $
         print '</div>';
         print '</div>';
 
-
         print '</div>';
     }
 
@@ -154,6 +155,7 @@ function llxHeaderVierge($title, $head = "", $disablejs = 0, $disablehead = 0, $
  */
 function llxFooterVierge()
 {
+
     print '</div>';
 
     printCommonFooter('public');
@@ -170,7 +172,7 @@ function llxFooterVierge()
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 // Note that $action and $object may have been modified by some hooks
 $reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action);
 if ($reshook < 0) {
@@ -280,7 +282,7 @@ if (empty($reshook) && $action == 'add') {
         $file = '';
         $classname = '';
         $filefound = 0;
-        $dirmodels = array_merge(array('/'), $conf->modules_parts['models']);
+        $dirmodels = array_merge(['/'], $conf->modules_parts['models']);
         foreach ($dirmodels as $reldir) {
             $file = dol_buildpath($reldir . "core/modules/project/" . $modele . '.php', 0);
             if (file_exists($file)) {
@@ -376,7 +378,6 @@ if (empty($reshook) && $action == 'added') {
 
     //llxFooterVierge();
     echo '<script>setTimeout(function(){ window.location.href= "' . $_SERVER['PHP_SELF'] . '";}, 3000);</script>';
-
 }
 
 /*
@@ -388,7 +389,7 @@ $formcompany = new FormCompany($db);
 
 $extrafields->fetch_name_optionals_label($object->table_element); // fetch optionals attributes and labels
 
-llxHeaderVierge('Borja - твоят нов покрив', '', '', '', '', array('public/project/css/main.css', 'public/project/css/slick.css', 'public/project/css/slick-theme.css'));
+llxHeaderVierge('Borja - твоят нов покрив', '', '', '', '', ['public/project/css/main.css', 'public/project/css/slick.css', 'public/project/css/slick-theme.css']);
 
 print load_fiche_titre('', '', '', 0, 0, 'center');
 
@@ -729,7 +730,8 @@ print '<div class="center">';
         <div class="contact_section">
             <p style="line-height:normal; text-align:center; font-size:16px;">
             <span style="letter-spacing:normal;">
-                <span>Имате въпроси? Свържете се с нас на тел. <a class="href-phone" href="tel:+359885555070" aria-disabled="false"><span>+359 885 555 070</span></a></span>
+                <span>Имате въпроси? Свържете се с нас на тел. <a class="href-phone" href="tel:+359885555070"
+                                                                  aria-disabled="false"><span>+359 885 555 070</span></a></span>
             </span>
             </p>
         </div>
@@ -806,9 +808,9 @@ print '<tr><td class="left">' . $langs->trans("Address") . '</td><td class="left
 print '<textarea name="address" id="address" wrap="soft" class="quatrevingtpercent" rows="' . ROWS_2 . '">' . dol_escape_htmltag(GETPOST('address', 'restricthtml'), 0, 1) . '</textarea></td></tr>' . "\n";
 // Zip / Town
 print '<tr><td class="left">' . $langs->trans('Zip') . ' / ' . $langs->trans('Town') . '</td><td class="left">';
-print $formcompany->select_ziptown(GETPOST('zipcode'), 'zipcode', array('town', 'selectcountry_id', 'state_id'), 6, 1);
+print $formcompany->select_ziptown(GETPOST('zipcode'), 'zipcode', ['town', 'selectcountry_id', 'state_id'], 6, 1);
 print ' / ';
-print $formcompany->select_ziptown(GETPOST('town'), 'town', array('zipcode', 'selectcountry_id', 'state_id'), 0, 1);
+print $formcompany->select_ziptown(GETPOST('town'), 'town', ['zipcode', 'selectcountry_id', 'state_id'], 0, 1);
 print '</td></tr>';
 // Country
 print '<tr><td class="left">' . $langs->trans('Country') . '</td><td class="left">';

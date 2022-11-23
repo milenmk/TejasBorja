@@ -1044,6 +1044,7 @@ if ($action == 'create' && $user->rights->projet->creer) {
 		$morehtmlref .= '<br>'.$langs->trans('ThirdParty').' : ';
 		if (!empty($object->thirdparty->id) && $object->thirdparty->id > 0) {
 			$morehtmlref .= $object->thirdparty->getNomUrl(1, 'project');
+            $morehtmlref .= $form->showCategories($object->socid, Categorie::TYPE_CUSTOMER, 1);
 		}
 		$morehtmlref .= '</div>';
 

@@ -23,27 +23,181 @@ body {
     direction: ltr;
 }
 
-.header {
-    display: block;
-    min-height: 80px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    background-color: #edead6;
+@media (min-width: 768px) {
+    .header {
+        display: block;
+        min-height: 80px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: #edead6;
+    }
+
+    .public-logo {
+        width: 33%;
+        position: relative;
+        display: flex;
+    }
+
+    .header > img {
+        float: left;
+        margin-left: 20px;
+        width: auto;
+        height: 80px;
+    }
+
+    .header-menu {
+        display: block;
+        float: right;
+        margin: auto;
+        padding-right: 50px;
+    }
+
+    .header-menu > a:link, .header-menu > a:visited {
+        text-decoration: none;
+        color: rgb(47, 46, 46);
+        padding-left: 20px;
+    }
+
+    .header-icons {
+        display: block;
+        float: right;
+        margin: auto;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    .public-center {
+        max-width: 1280px;
+        display: flex;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 30px;
+        position: relative;
+    }
+
+    .column-4 {
+        position: relative;
+        display: grid;
+        grid-auto-flow: column;
+        float: left;
+        width: 25%;
+    }
+
+    .head-lead-1 > img {
+        width: 360px;
+        height: 240px;
+        object-fit: cover;
+        object-position: 50% 50%;
+    }
+
+    .hide-lead-1 {
+        display: none;
+    }
+
+    .head-lead-1:hover > .hide-lead-1 {
+        display: block;
+    }
+
+    .hide-lead-1:hover {
+        display: block;
+    }
+
+    .hide-lead-2 {
+        display: none;
+    }
+
+    .head-lead-2:hover > .hide-lead-2 {
+        display: block;
+    }
+
+    .hide-lead-2:hover {
+        display: block;
+    }
+
+    .hide-lead-3 {
+        display: none;
+    }
+
+    .head-lead-3:hover > .hide-lead-3 {
+        display: block;
+    }
+
+    .hide-lead-3:hover {
+        display: block;
+    }
+
+    .hide-lead-4 {
+        display: none;
+    }
+
+    .head-lead-4:hover > .hide-lead-4 {
+        display: block;
+    }
+
+    .hide-lead-4:hover {
+        display: block;
+    }
 }
 
-.header-menu {
-    display: block;
-    float: right;
-    margin: auto;
-    padding-right: 50px;
-}
+@media (max-width: 767px) {
+    .header {
+        display: block;
+        min-height: 100px;
+        margin: auto;
+        padding: 10px 0;
+        background-color: #edead6;
+    }
 
-.header-icons {
-    display: block;
-    float: right;
-    margin: auto;
-    padding-left: 50px;
-    padding-right: 50px;
+    .public-logo {
+        width: 50%;
+        position: fixed;
+        display: inline-block;
+        align: center;
+    }
+
+    .header-menu {
+        width: 80%;
+        position: relative;
+        display: block;
+        margin: auto;
+        padding: 10px 0;
+    }
+
+    .header-menu > a {
+        margin: 5px 0;
+    }
+
+    .mobile-hide {
+        display: none;
+    }
+
+    .header-menu > a:link, .header-menu > a:visited {
+        text-decoration: none;
+        color: rgb(47, 46, 46);
+        padding-left: 10px;
+    }
+
+    .header-icons {
+        display: block;
+        margin: auto;
+        padding: 10px 0;
+    }
+
+    .public-center {
+        max-width: 80%;
+        display: flex;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 20px;
+        position: relative;
+    }
+
+    .head-lead-1 > img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        object-position: 50% 50%;
+    }
 }
 
 .icon::before {
@@ -55,52 +209,31 @@ body {
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
 }
+
 .facebook::before {
     font-family: "Font Awesome 5 Brands";
     font-weight: 900;
+    font-size: 14px;
     content: "\f09a";
 }
+
 .youtube::before {
     font-family: "Font Awesome 5 Brands";
+    font-weight: 900;
+    font-size: 14px;
     content: "\f167";
 }
+
 .instagram::before {
     font-family: "Font Awesome 5 Brands";
+    font-weight: 900;
+    font-size: 14px;
     content: "\f16d";
-}
-
-.header-menu > a:link, .header-menu > a:visited {
-    text-decoration: none;
-    color: rgb(47,46,46);
-    padding-left: 20px;
 }
 
 .header-icons > a:link, .header-icons > a:visited {
     text-decoration: none;
-    color: rgb(255,255,255);
-}
-
-.public-center {
-    max-width: 1280px;
-    display: flex;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 30px;
-    position: relative;
-}
-
-.public-logo {
-    width: 33%;
-    position: relative;
-    display: flex;
-}
-
-.column-4 {
-    position: relative;
-    display: grid;
-    grid-auto-flow: column;
-    float: left;
-    width: 25%;
+    color: rgb(255, 255, 255);
 }
 
 .column-content-4 {
@@ -113,54 +246,6 @@ body {
     content: "";
     display: table;
     clear: both;
-}
-
-.hide-lead-1 {
-    display: none;
-}
-
-.head-lead-1:hover > .hide-lead-1 {
-    display: block;
-}
-
-.hide-lead-1:hover {
-    display: block;
-}
-
-.hide-lead-2 {
-    display: none;
-}
-
-.head-lead-2:hover > .hide-lead-2 {
-    display: block;
-}
-
-.hide-lead-2:hover {
-    display: block;
-}
-
-.hide-lead-3 {
-    display: none;
-}
-
-.head-lead-3:hover > .hide-lead-3 {
-    display: block;
-}
-
-.hide-lead-3:hover {
-    display: block;
-}
-
-.hide-lead-4 {
-    display: none;
-}
-
-.head-lead-4:hover > .hide-lead-4 {
-    display: block;
-}
-
-.hide-lead-4:hover {
-    display: block;
 }
 
 .gap {

@@ -56,6 +56,7 @@ require_once DOL_DOCUMENT_ROOT . '/core/lib/json.lib.php';
 require_once DOL_DOCUMENT_ROOT . '/projet/class/project.class.php';
 require_once DOL_DOCUMENT_ROOT . '/core/class/extrafields.class.php';
 require_once DOL_DOCUMENT_ROOT . '/core/class/html.formcompany.class.php';
+dol_include_once('/custom/bthcommon/class/bthcommon.class.php');
 
 // Init vars
 $errmsg = '';
@@ -77,6 +78,8 @@ $hookmanager->initHooks(array('publicnewleadcard', 'globalcard'));
 $extrafields = new ExtraFields($db);
 
 $object = new Project($db);
+
+$bthc = new bthcommon($db);
 
 $user->loadDefaultValues();
 
@@ -112,10 +115,10 @@ function llxHeaderVierge($title, $head = "", $disablejs = 0, $disablehead = 0, $
     // Output html code for logo
     if ($urllogo) {
         print '<div class="header">';
-        print '<img style="float: left;margin-left: 20px;width: auto; height: 80px;" id="dolpaymentlogo" src="' . $urllogo . '" >';
+        print '<img id="dolpaymentlogo" src="' . $urllogo . '" >';
 
         print '<div class="header-menu">';
-        print '<a href="https://www.borjabulgaria.com">Borja Bulgaria</a>';
+        print '<a class="mobile-hide" href="https://www.borjabulgaria.com">Borja Bulgaria</a>';
         print '<a href="https://www.borjabulgaria.com/borjatherm">BorjaTHERM</a>';
         print '<a href="https://www.borjabulgaria.com/produkti">BorjaClass</a>';
         print '<a href="https://www.borjabulgaria.com/borjajet">BorjaJET</a>';
@@ -257,6 +260,11 @@ if (empty($reshook) && $action == 'add') {
                 } else {
                     $proj->socid = $thirdparty->id;
                 }
+            }
+
+            $thirdparty->fetch($thirdparty->id);
+            if (GETPOST('custcat', 'az09') != 9999) {
+                $thirdparty->setCategories(GETPOST('custcat', 'az09'), 'customer');
             }
         }
     }
@@ -439,8 +447,7 @@ print '<div class="center" width="80%">';
                 <div class="column-content-4">
                     <div class="head-lead-1">
                         <img src="./img/Roof-Carpenter.jpg"
-                             alt="Roof-Carpenter.jpg"
-                             style="width: 360px; height: 240px; object-fit: cover; object-position: 50% 50%;">
+                             alt="Roof-Carpenter.jpg">
                         <p style="line-height:normal; text-align:center; font-size:14px;"><span
                                     style="letter-spacing:0.25em;border: 1px solid #333;padding: 10px 20px;"><span>Economy</span></span>
                         </p>
@@ -491,8 +498,7 @@ print '<div class="center" width="80%">';
                 <div class="column-content-4">
                     <div class="head-lead-1">
                         <img src="./img/51253768251_301cf21254_c.jpg"
-                             alt="51253768251_301cf21254_c.jpg"
-                             style="width: 360px; height: 240px; object-fit: cover; object-position: 50% 50%;">
+                             alt="51253768251_301cf21254_c.jpg">
                         <p style="line-height:normal; text-align:center; font-size:14px;"><span
                                     style="letter-spacing:0.25em;border: 1px solid #333;padding: 10px 20px;"><span>Premium</span></span>
                         </p>
@@ -555,8 +561,7 @@ print '<div class="center" width="80%">';
                 <div class="column-content-4">
                     <div class="head-lead-1">
                         <img src="./img/48664495236_a990e1e9ed_o.jpg"
-                             alt="48664495236_a990e1e9ed_o.jpg"
-                             style="width: 360px; height: 240px; object-fit: cover; object-position: 50% 50%;">
+                             alt="48664495236_a990e1e9ed_o.jpg">
                         <p style="line-height:normal; text-align:center; font-size:14px;"><span
                                     style="letter-spacing:0.25em;border: 1px solid #333;padding: 10px 20px;"><span>PremiumJET</span></span>
                         </p>
@@ -618,8 +623,7 @@ print '<div class="center" width="80%">';
                 <div class="column-content-4">
                     <div class="head-lead-1">
                         <img src="./img/51859494723_490b860fb2_c.jpg"
-                             alt="51859494723_490b860fb2_c.jpg"
-                             style="width: 360px; height: 240px; object-fit: cover; object-position: 50% 50%;">
+                             alt="51859494723_490b860fb2_c.jpg">
                         <p style="line-height:normal; text-align:center; font-size:14px;"><span
                                     style="letter-spacing:0.25em;border: 1px solid #333;padding: 10px 20px;"><span>Ultra Premium</span></span>
                         </p>
@@ -870,6 +874,16 @@ $country_code = getCountry($country_id, 2, $db, $langs);
 print $form->select_country('59', 'country_id', '', '', 'minwidth200', '', '', '', '', '', '');
 print '</td></tr>';
 
+//Customer category
+print '<tr><td class="left">' . $langs->trans('CustomersCategorie') . '</td><td class="left">';
+print '<select name="custcat" class="minwidth200">';
+print '<option value="9999">' . $langs->trans('Individual') . '</option>';
+foreach ($bthc->getCustomerCategories() as $cat) {
+    print '<option value="' . $cat['id'] . '">' . $cat['label'] . '</option>';
+}
+print '</select>';
+print "</td></tr>";
+
 // Other attributes
 $tpl_context = 'public'; // define template context to public
 //include DOL_DOCUMENT_ROOT . '/core/tpl/extrafields_add.tpl.php';
@@ -881,7 +895,7 @@ print '</tr>' . "\n";
 
 print "</table>\n";
 
-print '<br><span class="opacitymedium">' . $langs->trans("FieldsWithAreMandatory", '*') . '</span><br>';
+print '<span class="opacitymedium">' . $langs->trans("FieldsWithAreMandatory", '*') . '</span><br>';
 //print $langs->trans("FieldsWithIsForPublic",'**').'<br>';
 
 print dol_get_fiche_end();
@@ -895,26 +909,25 @@ print '<button class="button" onclick="closeForm()">' . $langs->trans('Close') .
 print '</div>';
 
 print "</form>\n";
-print "<br>";
 ?>
-
-    <p class="left" style="line-height:normal;"><span>Попълнете формата за контакт и потвърдете Вашата заявка за да получите:</span>
-    </p>
-    <ul class="left">
-        <li style="line-height:normal;">
-            <p style="line-height:normal;"><span>Персонализирана оферта</span></p>
-        </li>
-        <li style="line-height:normal;">
-            <p style="line-height:normal;"><span">Изчисления по чертеж</span></p>
-        </li>
-        <li>
-            <p style="line-height:normal;"><span">Актуална ценова листа</span>></p>
-        </li>
-        <li style="line-height:normal;">
-            <p style="line-height:normal;"><span>Безплатна консултация 30 мин.</span></p>
-        </li>
-    </ul>
-
+    <div class="mobile-hide">
+        <p class="left" style="line-height:normal;"><span>Попълнете формата за контакт и потвърдете Вашата заявка за да получите:</span>
+        </p>
+        <ul class="left">
+            <li style="line-height:normal;">
+                <p style="line-height:normal;"><span>Персонализирана оферта</span></p>
+            </li>
+            <li style="line-height:normal;">
+                <p style="line-height:normal;"><span">Изчисления по чертеж</span></p>
+            </li>
+            <li>
+                <p style="line-height:normal;"><span">Актуална ценова листа</span>></p>
+            </li>
+            <li style="line-height:normal;">
+                <p style="line-height:normal;"><span>Безплатна консултация 30 мин.</span></p>
+            </li>
+        </ul>
+    </div>
 <?php
 print '</div>';
 
@@ -933,6 +946,7 @@ print '</div>';
                 {
                     breakpoint: 600,
                     settings: {
+                        arrows: false,
                         slidesToShow: 2,
                         slidesToScroll: 1
                     }
@@ -940,6 +954,7 @@ print '</div>';
                 {
                     breakpoint: 480,
                     settings: {
+                        arrows: false,
                         slidesToShow: 1,
                         slidesToScroll: 1
                     }

@@ -22,16 +22,16 @@
  */
 
 /**
- *    \file       htdocs/public/project/borjatechoffer.php
+ *    \file       htdocs/public/project/borjajetoffer.php
  *    \ingroup    project
  *    \brief      Page to record a message/lead into a project/lead
  */
 
 if (!defined('NOLOGIN')) {
-    define("NOLOGIN", 1); // This means this output page does not require to be logged.
+	define('NOLOGIN', 1); // This means this output page does not require to be logged.
 }
 if (!defined('NOCSRFCHECK')) {
-    define("NOCSRFCHECK", 1); // We accept to go on this page from external website.
+	define('NOCSRFCHECK', 1); // We accept to go on this page from external website.
 }
 if (!defined('NOIPCHECK')) {
     define('NOIPCHECK', '1'); // Do not check IP defined into conf $dolibarr_main_restrict_ip
@@ -47,7 +47,7 @@ if (!defined('NOIPCHECK')) {
 // Do not use GETPOST here, function is not defined and define must be done before including main.inc.php
 $entity = (!empty($_GET['entity']) ? (int)$_GET['entity'] : (!empty($_POST['entity']) ? (int)$_POST['entity'] : 1));
 if (is_numeric($entity)) {
-    define("DOLENTITY", $entity);
+	define('DOLENTITY', $entity);
 }
 
 global $conf, $langs, $db, $user;
@@ -67,11 +67,11 @@ $backtopage = GETPOST('backtopage', 'alpha');
 $action = GETPOST('action', 'aZ09');
 
 // Load translation files
-$langs->loadLangs(["members", "companies", "install", "other", "projects", 'admin', 'mails', 'bthcommon@bthcommon']);
+$langs->loadLangs(['members', 'companies', 'install', 'other', 'projects', 'admin', 'mails', 'bthcommon@bthcommon']);
 
 if (empty($conf->global->PROJECT_ENABLE_PUBLIC)) {
-    print $langs->trans("Form for public lead registration has not been enabled");
-    exit;
+	print $langs->trans('Form for public lead registration has not been enabled');
+	exit;
 }
 
 // Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array of hook context
@@ -102,17 +102,17 @@ if (empty($conf->project->enabled)) {
  *
  * @return    void
  */
-function llxHeaderVierge($title, $head = "", $disablejs = 0, $disablehead = 0, $arrayofjs = '', $arrayofcss = '')
+function llxHeaderVierge($title, $head = '', $disablejs = 0, $disablehead = 0, $arrayofjs = '', $arrayofcss = '')
 {
 
-    global $conf;
+	global $conf;
 
-    top_htmlhead($head, $title, $disablejs, $disablehead, $arrayofjs, $arrayofcss); // Show html headers
+	top_htmlhead($head, $title, $disablejs, $disablehead, $arrayofjs, $arrayofcss); // Show html headers
 
-    print '<body id="mainbody" class="publicnewmemberform">';
+	print '<body id="mainbody" class="publicnewmemberform">';
 
-    // Define urllogo
-    $urllogo = './img/tejas-borja.png';
+	// Define urllogo
+	$urllogo = './img/tejas-borja.png';
 
     print '<div class="center">';
 
@@ -187,45 +187,45 @@ if (empty($reshook) && $action == 'add') {
 
     $db->begin();
 
-    if (!GETPOST("lastname")) {
-        $error++;
-        $errmsg .= $langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Lastname")) . "<br>\n";
-    }
-    if (!GETPOST("firstname")) {
-        $error++;
-        $errmsg .= $langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Firstname")) . "<br>\n";
-    }
-    if (!GETPOST("email")) {
-        $error++;
-        $errmsg .= $langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Email")) . "<br>\n";
-    }
-    if (!GETPOST("description")) {
-        $error++;
-        $errmsg .= $langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Message")) . "<br>\n";
-    }
-    if (GETPOST("email") && !isValidEmail(GETPOST("email"))) {
-        $error++;
-        $langs->load("errors");
-        $errmsg .= $langs->trans("ErrorBadEMail", GETPOST("email")) . "<br>\n";
-    }
-    if (!GETPOST("phone")) {
-        $error++;
-        $errmsg .= $langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Phone")) . "<br>\n";
-    }
+	if (!GETPOST('lastname')) {
+		$error++;
+		$errmsg .= $langs->trans('ErrorFieldRequired', $langs->transnoentitiesnoconv('Lastname')) . "<br>\n";
+	}
+	if (!GETPOST('firstname')) {
+		$error++;
+		$errmsg .= $langs->trans('ErrorFieldRequired', $langs->transnoentitiesnoconv('Firstname')) . "<br>\n";
+	}
+	if (!GETPOST('email')) {
+		$error++;
+		$errmsg .= $langs->trans('ErrorFieldRequired', $langs->transnoentitiesnoconv('Email')) . "<br>\n";
+	}
+	if (!GETPOST('description')) {
+		$error++;
+		$errmsg .= $langs->trans('ErrorFieldRequired', $langs->transnoentitiesnoconv('Message')) . "<br>\n";
+	}
+	if (GETPOST('email') && !isValidEmail(GETPOST('email'))) {
+		$error++;
+		$langs->load('errors');
+		$errmsg .= $langs->trans('ErrorBadEMail', GETPOST('email')) . "<br>\n";
+	}
+	if (!GETPOST('phone')) {
+		$error++;
+		$errmsg .= $langs->trans('ErrorFieldRequired', $langs->transnoentitiesnoconv('Phone')) . "<br>\n";
+	}
     // Set default opportunity status
     $defaultoppstatus = getDolGlobalString('PROJECT_DEFAULT_OPPORTUNITY_STATUS_FOR_ONLINE_LEAD');
     if (empty($defaultoppstatus)) {
-        $error++;
-        $langs->load("errors");
-        $errmsg .= $langs->trans("ErrorModuleSetupNotComplete", $langs->transnoentitiesnoconv("Project")) . "<br>\n";
-    }
+		$error++;
+		$langs->load('errors');
+		$errmsg .= $langs->trans('ErrorModuleSetupNotComplete', $langs->transnoentitiesnoconv('Project')) . "<br>\n";
+	}
 
     $proj = new Project($db);
     $thirdparty = new Societe($db);
 
     if (!$error) {
         // Search thirdparty and set it if found to the new created project
-        $result = $thirdparty->fetch(0, '', '', '', '', '', '', '', '', '', GETPOST("email"));
+		$result = $thirdparty->fetch(0, '', '', '', '', '', '', '', '', '', GETPOST('email'));
         if ($result > 0) {
             $proj->socid = $thirdparty->id;
         } else {
@@ -284,7 +284,7 @@ if (empty($reshook) && $action == 'add') {
         $filefound = 0;
         $dirmodels = array_merge(['/'], $conf->modules_parts['models']);
         foreach ($dirmodels as $reldir) {
-            $file = dol_buildpath($reldir . "core/modules/project/" . $modele . '.php', 0);
+			$file = dol_buildpath($reldir . 'core/modules/project/' . $modele . '.php', 0);
             if (file_exists($file)) {
                 $filefound = 1;
                 $classname = $modele;
@@ -293,37 +293,37 @@ if (empty($reshook) && $action == 'add') {
         }
 
         if ($filefound) {
-            $result = dol_include_once($reldir . "core/modules/project/" . $modele . '.php');
-            $modProject = new $classname;
+			$result = dol_include_once($reldir . 'core/modules/project/' . $modele . '.php');
+			$modProject = new $classname();
 
-            $defaultref = $modProject->getNextValue($thirdparty, $object);
-        }
+			$defaultref = $modProject->getNextValue($thirdparty, $object);
+		}
 
         if (is_numeric($defaultref) && $defaultref <= 0) {
             $defaultref = '';
         }
 
-        if (empty($defaultref)) {
-            $defaultref = 'PJ' . dol_print_date(dol_now(), 'dayrfc');
-        }
+		if (empty($defaultref)) {
+			$defaultref = 'PJ' . dol_print_date(dol_now(), 'dayrfc');
+		}
 
-        $proj->ref = $defaultref;
-        $proj->statut = $proj::STATUS_DRAFT;
-        $proj->status = $proj::STATUS_DRAFT;
-        $proj->email = GETPOST("email");
-        $proj->public = 1;
-        $proj->usage_opportunity = 1;
-        $proj->title = $langs->trans("OnlineFormPackageRequest");
-        $proj->description = GETPOST("description", "alphanohtml");
-        $proj->opp_status = $defaultoppstatus;
-        $proj->fk_opp_status = $defaultoppstatus;
+		$proj->ref = $defaultref;
+		$proj->statut = $proj::STATUS_DRAFT;
+		$proj->status = $proj::STATUS_DRAFT;
+		$proj->email = GETPOST('email');
+		$proj->public = 1;
+		$proj->usage_opportunity = 1;
+		$proj->title = $langs->trans('OnlineFormPackageRequest');
+		$proj->description = GETPOST('description', 'alphanohtml');
+		$proj->opp_status = $defaultoppstatus;
+		$proj->fk_opp_status = $defaultoppstatus;
 
-        // Fill array 'array_options' with data from the form
-        $extrafields->fetch_name_optionals_label($proj->table_element);
-        $ret = $extrafields->setOptionalsFromPost((array)null, $proj);
-        if ($ret < 0) {
-            $error++;
-        }
+		// Fill array 'array_options' with data from the form
+		$extrafields->fetch_name_optionals_label($proj->table_element);
+		$ret = $extrafields->setOptionalsFromPost((array)null, $proj);
+		if ($ret < 0) {
+			$error++;
+		}
 
         //$proj->array_options['options_packageroofsys'] = !empty(GETPOST('package', 'aZ09')) ? GETPOST('package', 'aZ09') : $_POST['package'];
         $proj->array_options['options_packageroofsys'] = GETPOST('package', 'aZ09');
@@ -340,14 +340,14 @@ if (empty($reshook) && $action == 'add') {
                 $urlback = $conf->global->PROJECT_URL_REDIRECT_LEAD;
                 // TODO Make replacement of __AMOUNT__, etc...
             } else {
-                $urlback = $_SERVER["PHP_SELF"] . "?action=added&token=" . newToken();
+				$urlback = $_SERVER['PHP_SELF'] . '?action=added&token=' . newToken();
             }
 
             if (!empty($entity)) {
                 $urlback .= '&entity=' . $entity;
             }
 
-            dol_syslog("project lead " . $proj->ref . " has been created, we redirect to " . $urlback);
+			dol_syslog('project lead ' . $proj->ref . ' has been created, we redirect to ' . $urlback);
         } else {
             $error++;
             $errmsg .= $proj->error . '<br>' . join('<br>', $proj->errors);
@@ -357,8 +357,8 @@ if (empty($reshook) && $action == 'add') {
     if (!$error) {
         $db->commit();
 
-        Header("Location: " . $urlback);
-        exit;
+		Header('Location: ' . $urlback);
+		exit;
     } else {
         $db->rollback();
     }
@@ -372,9 +372,9 @@ if (empty($reshook) && $action == 'added') {
 
     // Si on a pas ete redirige
     print '<br><br>';
-    print '<div class="center">';
-    print $langs->trans("NewLeadbyWebModif");
-    print '</div>';
+	print '<div class="center">';
+	print $langs->trans('NewLeadbyWebModif');
+	print '</div>';
 
     //llxFooterVierge();
     echo '<script>setTimeout(function(){ window.location.href= "' . $_SERVER['PHP_SELF'] . '";}, 3000);</script>';
@@ -760,13 +760,13 @@ print '<div id="divsubscribe" class="form-popup">';
 dol_htmloutput_errors($errmsg);
 
 // Print form
-print '<form action="' . $_SERVER["PHP_SELF"] . '" method="POST" name="newlead">' . "\n";
+print '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST" name="newlead">' . "\n";
 print '<input type="hidden" name="token" value="' . newToken() . '" / >';
 print '<input type="hidden" name="entity" value="' . $entity . '" />';
 print '<input type="hidden" name="action" value="add" />';
 
 //print $langs->trans('MailToSendSupplierRequestForQuotation');
-print load_fiche_titre($langs->trans("MailToSendSupplierRequestForQuotation"), '', '');
+print load_fiche_titre($langs->trans('MailToSendSupplierRequestForQuotation'), '', '');
 //print '<br><br>';
 
 print '<input type="hidden" name="package" id="package" value="" />';
@@ -794,17 +794,17 @@ print '<td class="left"><span id="package2"></span></td>';
 print '</tr>' . "\n";
 
 // Firstname
-print '<tr><td class="left">' . $langs->trans("Firstname") . ' <span style="color: red">*</span></td><td class="left"><input type="text" name="firstname" class="minwidth150" value="' . dol_escape_htmltag(GETPOST('firstname')) . '" required></td></tr>' . "\n";
+print '<tr><td class="left">' . $langs->trans('Firstname') . ' <span style="color: red">*</span></td><td class="left"><input type="text" name="firstname" class="minwidth150" value="' . dol_escape_htmltag(GETPOST('firstname')) . '" required></td></tr>' . "\n";
 // Lastname
-print '<tr><td class="left">' . $langs->trans("Lastname") . ' <span style="color: red">*</span></td><td class="left"><input type="text" name="lastname" class="minwidth150" value="' . dol_escape_htmltag(GETPOST('lastname')) . '" required></td></tr>' . "\n";
+print '<tr><td class="left">' . $langs->trans('Lastname') . ' <span style="color: red">*</span></td><td class="left"><input type="text" name="lastname" class="minwidth150" value="' . dol_escape_htmltag(GETPOST('lastname')) . '" required></td></tr>' . "\n";
 // EMail
-print '<tr><td class="left">' . $langs->trans("Email") . ' <span style="color: red">*</span></td><td class="left"><input type="text" name="email" maxlength="255" class="minwidth150" value="' . dol_escape_htmltag(GETPOST('email')) . '" required></td></tr>' . "\n";
+print '<tr><td class="left">' . $langs->trans('Email') . ' <span style="color: red">*</span></td><td class="left"><input type="text" name="email" maxlength="255" class="minwidth150" value="' . dol_escape_htmltag(GETPOST('email')) . '" required></td></tr>' . "\n";
 // Phone
-print '<tr><td class="left">' . $langs->trans("Phone") . ' <span style="color: red">*</span></td><td class="left"><input type="text" name="phone" maxlength="255" class="minwidth150" value="' . dol_escape_htmltag(GETPOST('phone')) . '" required></td></tr>' . "\n";
+print '<tr><td class="left">' . $langs->trans('Phone') . ' <span style="color: red">*</span></td><td class="left"><input type="text" name="phone" maxlength="255" class="minwidth150" value="' . dol_escape_htmltag(GETPOST('phone')) . '" required></td></tr>' . "\n";
 // Company
-print '<tr id="trcompany" class="trcompany"><td class="left">' . $langs->trans("Company") . '</td><td class="left"><input type="text" name="societe" class="minwidth150" value="' . dol_escape_htmltag(GETPOST('societe')) . '"></td></tr>' . "\n";
+print '<tr id="trcompany" class="trcompany"><td class="left">' . $langs->trans('Company') . '</td><td class="left"><input type="text" name="societe" class="minwidth150" value="' . dol_escape_htmltag(GETPOST('societe')) . '"></td></tr>' . "\n";
 // Address
-print '<tr><td class="left">' . $langs->trans("Address") . '</td><td class="left">' . "\n";
+print '<tr><td class="left">' . $langs->trans('Address') . '</td><td class="left">' . "\n";
 print '<textarea name="address" id="address" wrap="soft" class="quatrevingtpercent" rows="' . ROWS_2 . '">' . dol_escape_htmltag(GETPOST('address', 'restricthtml'), 0, 1) . '</textarea></td></tr>' . "\n";
 // Zip / Town
 print '<tr><td class="left">' . $langs->trans('Zip') . ' / ' . $langs->trans('Town') . '</td><td class="left">';
@@ -841,27 +841,27 @@ foreach ($bthc->getCustomerCategories() as $cat) {
     print '<option value="' . $cat['id'] . '">' . $cat['label'] . '</option>';
 }
 print '</select>';
-print "</td></tr>";
+print '</td></tr>';
 
 // Other attributes
 $tpl_context = 'public'; // define template context to public
 //include DOL_DOCUMENT_ROOT . '/core/tpl/extrafields_add.tpl.php';
 // Comments
 print '<tr>';
-print '<td class="tdtop left">' . $langs->trans("MailText") . ' <span style="color: red">*</span></td>';
+print '<td class="tdtop left">' . $langs->trans('MailText') . ' <span style="color: red">*</span></td>';
 print '<td class="tdtop left"><textarea name="description" id="description" wrap="soft" class="quatrevingtpercent" rows="' . ROWS_5 . '" required>' . dol_escape_htmltag(GETPOST('description', 'restricthtml'), 0, 1) . '</textarea></td>';
 print '</tr>' . "\n";
 
 print "</table>\n";
 
-print '<span class="opacitymedium">' . $langs->trans("FieldsWithAreMandatory", '*') . '</span><br>';
+print '<span class="opacitymedium">' . $langs->trans('FieldsWithAreMandatory', '*') . '</span><br>';
 //print $langs->trans("FieldsWithIsForPublic",'**').'<br>';
 
 print dol_get_fiche_end();
 
 // Save
 print '<div class="center">';
-print '<input type="submit" value="' . $langs->trans("Submit") . '" id="submitsave" class="button">';
+print '<input type="submit" value="' . $langs->trans('Submit') . '" id="submitsave" class="button">';
 
 print '<button class="button" onclick="closeForm()">' . $langs->trans('Close') . '</button>';
 

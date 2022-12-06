@@ -416,7 +416,7 @@ print '<div class="center">';
                 </div>
             </div>
             <div class="column-2">
-                <div class="row-2">
+                <div class="row-2 center">
                     <div class="column-2"><img src="img/jetoffer/1.jpg" width="95%" height="auto"/></div>
                     <div class="column-2"><img src="img/jetoffer/2.jpg" width="95%" height="auto"/></div>
 
@@ -438,7 +438,7 @@ print '<div class="center">';
 			foreach ($images_array as $imagetmp) {
 				//$image = str_replace($dir, '', $imagetmp);
 				//print '<div class="carouselbox">';
-				print '<p style="border: 10px solid #fff;"><img src="' . $imagetmp . '" alt="' . $imagetmp . '" width="auto" height="280px" /></p>';
+				print '<p><img src="' . $imagetmp . '" alt="' . $imagetmp . '" width="auto" height="280px" /></p>';
 				//print '</div>';
 			}
 			?>

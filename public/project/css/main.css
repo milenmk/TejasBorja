@@ -173,6 +173,10 @@ body {
     .center-form {
         width: 50%;
     }
+
+    .carousel-view p {
+        border: 10px solid #fff;
+    }
 }
 
 @media (max-width: 767px) {
@@ -233,6 +237,10 @@ body {
         height: auto;
         object-fit: cover;
         object-position: 50% 50%;
+    }
+
+    .carousel-view p {
+        border: 1px solid #fff;
     }
 }
 

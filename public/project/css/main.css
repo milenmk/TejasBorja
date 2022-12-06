@@ -83,6 +83,22 @@ body {
         width: 25%;
     }
 
+    .column-3 {
+        position: relative;
+        display: grid;
+        grid-auto-flow: column;
+        float: left;
+        width: 33%;
+    }
+
+    .column-2 {
+        position: relative;
+        display: grid;
+        grid-auto-flow: column;
+        float: left;
+        width: 50%;
+    }
+
     .head-lead-1 > img {
         width: 360px;
         height: 240px;
@@ -136,6 +152,26 @@ body {
 
     .hide-lead-4:hover {
         display: block;
+    }
+
+    .jetintro {
+        display: block;
+        position: relative;
+        background-image: url('../img/jetbackground.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        width: auto;
+        height: 100%;
+    }
+
+    .jetintro p {
+        vertical-align: bottom;
+        margin-top: 45em;
+        text-align: left;
+    }
+
+    .center-form {
+        width: 50%;
     }
 }
 
@@ -248,13 +284,25 @@ body {
     clear: both;
 }
 
+.row-3:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.row-2:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 .gap {
     margin: 20px 0 20px 0;
 }
 
 /* Button used to open the contact form - fixed at the bottom of the page */
 .open-button {
-    font-family:avenir-lt-w01_35-light1475496,avenir-lt-w05_35-light,sans-serif;
+    font-family: avenir-lt-w01_35-light1475496, avenir-lt-w05_35-light, sans-serif;
     color: #fff;
 }
 
@@ -275,7 +323,7 @@ body {
     max-width: 100%;
     color: #fff;
     padding: 20px 20px;
-    background-color: rgba(206,32,38,1);
+    background-color: #ce2026;
 }
 
 a:link {

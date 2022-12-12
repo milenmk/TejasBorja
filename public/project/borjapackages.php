@@ -403,8 +403,10 @@ print '<div class="center">';
             <div class="column-4">
                 <div class="column-content-4">
                     <div class="head-lead-1">
-                        <img src="./img/Roof-Carpenter.jpg"
-                             alt="Roof-Carpenter.jpg">
+                        <div class="head-lead-img">
+                            <img src="./img/Roof-Carpenter.jpg"
+                                 alt="Roof-Carpenter.jpg">
+                        </div>
                         <p style="line-height:normal; text-align:center; font-size:14px;"><span
                                     style="letter-spacing:0.25em;border: 1px solid #333;padding: 10px 20px;"><span>Economy</span></span>
                         </p>
@@ -420,9 +422,10 @@ print '<div class="center">';
                             </p>
                         </div>
                     </div>
-                    <img src="./img/ECONOMY.jpg"
-                         alt="ECONOMY.jpg"
-                         style="width: 300px; height: 39px; object-fit: cover; object-position: 50% 50%;">
+                    <div class="head-lead-img2">
+                        <img src="./img/ECONOMY.jpg"
+                             alt="ECONOMY.jpg">
+                    </div>
                     <ul class="left" style="font-size:14px;">
                         <li style="line-height:2em;">
                             <p style="line-height:2em; font-size:14px;"><span>Керамични керемида серия Borja Class, BorjaTech&nbsp;</span>
@@ -454,8 +457,10 @@ print '<div class="center">';
 
                 <div class="column-content-4">
                     <div class="head-lead-1">
-                        <img src="./img/51253768251_301cf21254_c.jpg"
-                             alt="51253768251_301cf21254_c.jpg">
+                        <div class="head-lead-img">
+                            <img src="./img/51253768251_301cf21254_c.jpg"
+                                 alt="51253768251_301cf21254_c.jpg">
+                        </div>
                         <p style="line-height:normal; text-align:center; font-size:14px;"><span
                                     style="letter-spacing:0.25em;border: 1px solid #333;padding: 10px 20px;"><span>Premium</span></span>
                         </p>
@@ -474,9 +479,10 @@ print '<div class="center">';
                             </p>
                         </div>
                     </div>
-                    <img src="./img/PREMIUM.jpg"
-                         alt="PREMIUM.jpg"
-                         style="width: 300px; height: 39px; object-fit: cover; object-position: 50% 50%;">
+                    <div class="head-lead-img2">
+                        <img src="./img/PREMIUM.jpg"
+                             alt="PREMIUM.jpg">
+                    </div>
                     <ul class="left" style="font-size:14px;">
                         <li style="line-height:2em;">
                             <p style="line-height:2em; font-size:14px;"><span
@@ -517,8 +523,10 @@ print '<div class="center">';
 
                 <div class="column-content-4">
                     <div class="head-lead-1">
-                        <img src="./img/48664495236_a990e1e9ed_o.jpg"
-                             alt="48664495236_a990e1e9ed_o.jpg">
+                        <div class="head-lead-img">
+                            <img src="./img/48664495236_a990e1e9ed_o.jpg"
+                                 alt="48664495236_a990e1e9ed_o.jpg">
+                        </div>
                         <p style="line-height:normal; text-align:center; font-size:14px;"><span
                                     style="letter-spacing:0.25em;border: 1px solid #333;padding: 10px 20px;"><span>PremiumJET</span></span>
                         </p>
@@ -537,9 +545,10 @@ print '<div class="center">';
                             </p>
                         </div>
                     </div>
-                    <img src="./img/JET.jpg"
-                         alt="JET.jpg"
-                         style="width: 300px; height: 39px; object-fit: cover; object-position: 50% 50%;">
+                    <div class="head-lead-img2">
+                        <img src="./img/JET.jpg"
+                             alt="JET.jpg">
+                    </div>
                     <ul class="left" style="font-size:14px;">
                         <li style="line-height:2em;">
                             <p style="line-height:2em; font-size:14px;">
@@ -579,8 +588,10 @@ print '<div class="center">';
 
                 <div class="column-content-4">
                     <div class="head-lead-1">
-                        <img src="./img/51859494723_490b860fb2_c.jpg"
-                             alt="51859494723_490b860fb2_c.jpg">
+                        <div class="head-lead-img">
+                            <img src="./img/51859494723_490b860fb2_c.jpg"
+                                 alt="51859494723_490b860fb2_c.jpg">
+                        </div>
                         <p style="line-height:normal; text-align:center; font-size:14px;"><span
                                     style="letter-spacing:0.25em;border: 1px solid #333;padding: 10px 20px;"><span>Ultra Premium</span></span>
                         </p>
@@ -599,9 +610,10 @@ print '<div class="center">';
                             </p>
                         </div>
                     </div>
-                    <img src="./img/ULTRA.jpg"
-                         alt="ULTRA.jpg"
-                         style="width: 300px; height: 39px; object-fit: cover; object-position: 50% 50%;">
+                    <div class="head-lead-img2">
+                        <img src="./img/ULTRA.jpg"
+                             alt="ULTRA.jpg">
+                    </div>
                     <ul class="left" style="font-size:14px;">
                         <li style="line-height:2em;">
                             <p style="line-height:2em; font-size:14px;"><span>Керамични керемида серия Borja Class, BorjaTech, BorjaJET, BorjaEXTREME</span>

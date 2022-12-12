@@ -80,7 +80,7 @@ body {
         display: grid;
         grid-auto-flow: column;
         float: left;
-        width: 25%;
+        min-width: 25%;
     }
 
     .column-3 {
@@ -99,9 +99,21 @@ body {
         width: 50%;
     }
 
-    .head-lead-1 > img {
-        width: 360px;
+    .head-lead-img {
+        display: inline-block;
+        min-width: 100%;
+    }
+
+    .head-lead-img > img {
+        width: 99%;
         height: 240px;
+        object-fit: cover;
+        object-position: 50% 50%;
+    }
+
+    .head-lead-img2 > img {
+        width: 90%;
+        height: 39px;
         object-fit: cover;
         object-position: 50% 50%;
     }

@@ -241,7 +241,7 @@ if (empty($reshook) && $action == 'add') {
 			$thirdparty->address = GETPOST('address');
 			$thirdparty->zip = GETPOST('zip');
 			$thirdparty->town = GETPOST('town');
-			$thirdparty->country_id = GETPOST('country_id', 'int');
+			$thirdparty->country_id = 59;
 			$thirdparty->state_id = GETPOST('state_id');
 			$thirdparty->client = $thirdparty::PROSPECT;
 			$thirdparty->code_client = 'auto';
@@ -488,6 +488,8 @@ print '<tr><td class="left">' . $langs->trans('Lastname') . ' <span style="color
 print '<tr><td class="left">' . $langs->trans('Email') . ' <span style="color: red">*</span></td><td class="left"><input type="text" name="email" maxlength="255" class="minwidth150" value="' . dol_escape_htmltag(GETPOST('email')) . '" required></td></tr>' . "\n";
 // Phone
 print '<tr><td class="left">' . $langs->trans('Phone') . ' <span style="color: red">*</span></td><td class="left"><input type="text" name="phone" maxlength="255" class="minwidth150" value="' . dol_escape_htmltag(GETPOST('phone')) . '" required></td></tr>' . "\n";
+
+/*
 // Company
 print '<tr id="trcompany" class="trcompany"><td class="left">' . $langs->trans('Company') . '</td><td class="left"><input type="text" name="societe" class="minwidth150" value="' . dol_escape_htmltag(GETPOST('societe')) . '"></td></tr>' . "\n";
 // Address
@@ -519,6 +521,7 @@ if (!$country_id && !empty($conf->geoipmaxmind->enabled)) {
 $country_code = getCountry($country_id, 2, $db, $langs);
 print $form->select_country('59', 'country_id', '', '', 'minwidth200', '', '', '', '', '', '');
 print '</td></tr>';
+*/
 
 //Customer category
 print '<tr><td class="left">' . $langs->trans('CustomersCategorie') . '</td><td class="left">';

@@ -186,8 +186,13 @@ body {
         width: 50%;
     }
 
-    .carousel-view p {
+    .carousel-view span {
         border: 10px solid #fff;
+    }
+
+    .carousel-view img {
+        width: auto;
+        height: 280px;
     }
 }
 
@@ -244,15 +249,32 @@ body {
         position: relative;
     }
 
-    .head-lead-1 > img {
-        width: 100%;
-        height: auto;
+    .head-lead-img {
+        display: inline-block;
+        min-width: 100%;
+    }
+
+    .head-lead-img > img {
+        width: 99%;
+        height: 240px;
         object-fit: cover;
         object-position: 50% 50%;
     }
 
-    .carousel-view p {
+    .head-lead-img2 > img {
+        width: 90%;
+        height: 39px;
+        object-fit: cover;
+        object-position: 50% 50%;
+    }
+
+    .carousel-view span {
         border: 1px solid #fff;
+    }
+
+    .carousel-view > img {
+        width: 50px;
+        height: 50px;
     }
 }
 

@@ -119,7 +119,7 @@ function llxHeaderVierge($title, $head = '', $disablejs = 0, $disablehead = 0, $
 	// Output html code for logo
 	if ($urllogo) {
 		print '<div class="header">';
-		print '<img id="dolpaymentlogo" src="' . $urllogo . '" >';
+        print '<a href="https://borjabulgaria.com" target="_blank"><img id="dolpaymentlogo" src="' . $urllogo . '" ></a>';
 
 		print '<div class="header-menu">';
 		print '<a class="mobile-hide" href="https://www.borjabulgaria.com">Borja Bulgaria</a>';
